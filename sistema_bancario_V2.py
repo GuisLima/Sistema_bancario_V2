@@ -1,6 +1,18 @@
-def extrato():
-    extrato_bancario = []
-    return extrato_bancario
+def extrato(saldo, /, *, extrato):
+    if not extrato:
+        print ('========= EXTRATO =========')
+        print("Não houve operações.")
+        print ('===========================')
+    else:
+        # Imprime cada operação registrada no extrato, seguida pelo valor
+        print ('========= EXTRATO =========')
+        for operacao, valor in extrato:
+            print(f'{operacao} de R$ {valor:.2f}')
+
+        print (f'Seu saldo é de R$ {saldo:.2f}')
+        print ('===========================')
+    
+    return saldo, extrato
 
 def deposito(saldo, valor_deposito, extrato, /):
 
@@ -68,17 +80,17 @@ def cadastro_usuario():
 
     return banco_dados_cadastro_usuario
 
-def validar_cpf(chave):
+def validar_cpf():
     while True:
-        cpf = input (f'Digite aqui o seu {chave} (sem pontos ou espaços): ')
+        cpf = input (f'Digite aqui o seu CPF (sem pontos ou espaços): ')
         if cpf.isdigit() and len(cpf) == 11:
             return cpf
         else:
             print ('Por favor, digite o seu CPF com 11 digitos e sem pontos ou espaços')
 
-def validar_endereco(chave):
+def validar_endereco(validador):
     
-        if chave == 'Logradouro, nro':
+        if validador == 'Logradouro, nro':
             while True:
                 logradouro = input('Digite o logradouro, numero: ')
                 partes_logradouro = logradouro.split(',')
@@ -86,13 +98,13 @@ def validar_endereco(chave):
                     print ('Digite o endereço e o número separados por virgula')
                 else:
                     return logradouro
-        elif chave == 'Bairro':
-            bairro = input ('Digite o bairro: ')
+        elif validador == 'Bairro':
+            bairro = input ('Digite o Bairro: ')
             return bairro
-        elif chave == 'Cidade':
-            cidade = input ('Digite sua cidade: ')
+        elif validador == 'Cidade':
+            cidade = input ('Digite sua Cidade: ')
             return cidade
-        elif chave == 'UF':
+        elif validador == 'UF':
             while True:
                 uf = input('Digite aqui a UF (dois caracteres): ')
                 if len(uf) == 2:
@@ -108,7 +120,7 @@ def criar_conta_corrente():
     cpf = input('Digite o cpf: ')
 
 
-    if cpf == cadastros['Cpf']:
+    if cpf == filtras_usuarios():
         contador = 0
         while True:
             contador += 1
@@ -120,5 +132,10 @@ def criar_conta_corrente():
 
     return conta_corrente
 
-# Pendencia: Como acessar o cadastro de usuário, na chave de CPF pelo conta corrente 
-# sem precisar puxar todo o cadastro de usuário
+def filtras_usuarios(cadastros_usuarios):
+    for chave, _ in cadastros_usuarios.items():
+        if chave.isdigit() and len(chave) == 11:
+            return chave
+
+
+
