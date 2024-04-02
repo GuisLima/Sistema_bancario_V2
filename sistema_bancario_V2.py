@@ -120,7 +120,7 @@ def criar_conta_corrente():
     cpf = input('Digite o cpf: ')
 
 
-    if cpf == filtras_usuarios():
+    if cpf == filtrar_usuarios():
         contador = 0
         while True:
             contador += 1
@@ -132,10 +132,109 @@ def criar_conta_corrente():
 
     return conta_corrente
 
-def filtras_usuarios(cadastros_usuarios):
+def filtrar_usuarios(cadastros_usuarios):
     for chave, _ in cadastros_usuarios.items():
         if chave.isdigit() and len(chave) == 11:
             return chave
 
 
+def menu_inicial():
+    print ('Olá! Seja bem vindo ao sistema bancário versão 2!')
+    menu = f'''
+    ==========  MENU  ==========
+     Selecione uma opção abaixo:
 
+       [1] - Já sou cadastrado
+       [2] - Cadastrar novo usuário/Conta Corrente
+       [0] - Sair
+
+'''
+    while True:
+
+        print (menu)
+
+        try:
+            escolha_usuario = int(input('\nDigite a opção desejada: '))
+
+        except ValueError:
+            print ('\nVocê digitou uma opção invalida, tente novamente!')
+            continue
+
+        if escolha_usuario == 0:
+            print ('\nObrigado por utilizar nosso sistema!')
+            break
+
+        elif escolha_usuario == 1:
+            menu_cadastro()
+
+        elif escolha_usuario == 2:
+            menu_operacional()
+    
+def menu_cadastro():
+    print ('Ficamos felizes em te-lo como novo cliente, cadastre seu usuário e em seguida a sua conta corrente')
+    menu = f'''
+    ==========  MENU  ==========
+     Selecione uma opção abaixo:
+
+       [1] - Cadastrar usuário
+       [2] - Cadastrar Conta Corrente
+       [0] - Sair
+
+'''
+    while True:
+
+        print (menu)
+
+        try:
+            escolha_usuario = int(input('\nDigite a opção desejada: '))
+
+        except ValueError:
+            print ('\nVocê digitou uma opção invalida, tente novamente!')
+            continue
+
+        if escolha_usuario == 0:
+            print ('\nObrigado por utilizar nosso sistema!')
+            break
+
+        elif escolha_usuario == 1:
+            cadastro_usuario()
+
+        elif escolha_usuario == 2:
+            criar_conta_corrente()
+
+    return cadastro_usuario(), criar_conta_corrente()
+
+def menu_operacional():
+    menu = f'''
+    ==========  MENU  ==========
+     Selecione uma opção abaixo:
+
+       [1] - Deposito
+       [2] - Saque
+       [3] - Extrato Bancário
+       [0] - Sair
+
+'''
+    while True:
+
+        print (menu)
+
+        try:
+            escolha_usuario = int(input('\nDigite a opção desejada: '))
+
+        except ValueError:
+            print ('\nVocê digitou uma opção invalida, tente novamente!')
+            continue
+
+        if escolha_usuario == 0:
+            print ('\nObrigado por utilizar nosso sistema!')
+            break
+
+        elif escolha_usuario == 1:
+            deposito()
+
+        elif escolha_usuario == 2:
+            saque()
+
+        elif escolha_usuario == 3:
+            extrato()
