@@ -127,7 +127,7 @@ def saque(* , saldo, valor_saque, extrato, limite_de_operacao):
         else:
               print("Você não possui saldo suficiente.")
     else:
-           print("O valor do saque deve estar entre R$ 0,00 e R$ 500,00.")
+           print("O limite de valor por operação é de R$ 500,00 reais")
 
     return saldo, extrato, limite_de_operacao
 
