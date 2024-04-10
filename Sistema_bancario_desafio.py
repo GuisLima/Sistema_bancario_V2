@@ -33,10 +33,10 @@ def cadastros_usuarios():
         if validar_data_nascimento(data_nascimento):
             break
         else:
-            print ('A data de nascimento encontra-se invalida! Utilize o formato DDMMAAAA')
+            print ('A data de nascimento encontra-se invalida! Utilize o (Formato: DDMMAAAA)')
      
     # Solicita o endereço do usuário
-    endereco = input ('Digite o seu endereço completo: ')
+    endereco = input ('Digite o seu endereço completo (Formato: logradouro, nro - bairro - cidade/siga estado): ')
 
     # Adiciona ao dicionário uma chave de CPF, impedindo assim que o mesmo usuário possa cadastrar o mesmo CPF
     # Cria um dicionário aninhado com as informações complementares
@@ -57,7 +57,7 @@ def filtragem_cpfs(cpf, lista):
             return True
     return False
 
-def criar_conta_corrente(bd_usuario):
+def criar_conta_corrente(bd_usuario, numero_conta):
     # Inicializa o dicionário vazio
     contas_corrente = {} 
     # Define uma constante para a agência que será sempre a mesma
@@ -70,7 +70,7 @@ def criar_conta_corrente(bd_usuario):
         # Verifica se o CPF consta na lista da função filtragem CPFS
         if filtragem_cpfs(digitacao_cpf, bd_usuario):
             # Adiciona informações ao dicionário vazio
-            contas_corrente[digitacao_cpf] = {'Agencia': AGENCIA}
+            contas_corrente[digitacao_cpf] = {'Agencia': AGENCIA, 'C/C': numero_conta}
             print ('Conta cadastrado com sucesso!')
             break
         else:
@@ -139,6 +139,7 @@ def menu():
      [3] - Deposito
      [4] - Saque
      [5] - Extrato
+     [6] - Listar Contas
      [0] - Sair
     ==========================
     '''
@@ -154,6 +155,7 @@ def main():
     # Inicialização de variáveis e constantes
     LIMITE_DE_OPERACAO = 3
     saldo = 0
+    numero_conta = 0
 
     # Apresentação 
     print ('Olá! Seja bem vindo, nesse sistema você conseguirá realizar operações bancárias.')
@@ -179,8 +181,9 @@ def main():
             bd_usuarios.append(cadastro_usuario)
             
             
-        elif escolha_usuario == 2:
-            cadastro_conta_corrente = criar_conta_corrente(bd_usuarios)
+        elif escolha_usuario == 2:   
+            numero_conta = len(bd_contas_correntes) + 1     
+            cadastro_conta_corrente = criar_conta_corrente(bd_usuarios, numero_conta)
             bd_contas_correntes.append(cadastro_conta_corrente)
         
         elif escolha_usuario == 3:
@@ -196,3 +199,7 @@ def main():
         elif escolha_usuario == 5:
             saldo, operacoes = extrato(saldo, extrato=operacoes)
 
+        elif escolha_usuario == 6:
+            print (bd_contas_correntes)
+
+main()
